@@ -1,0 +1,104 @@
+Sports Shop Automation Project (n8n + AI Agent)
+
+This project is a fully automated Sports Shop workflow built using n8n, Google Sheets, and an AI Agent (Gemini).
+It demonstrates how customer form data can be processed, stored, and used to send personalized emails automatically.
+
+Project Overview
+
+This is my first complete project built on n8n.
+The workflow is designed to automate customer communication for a sports shop from start to finish.
+
+The system:
+
+Collects customer data through a form
+
+Stores the data in Google Sheets
+
+Uses an AI Agent to generate unique emails
+
+Sends emails automatically
+
+Updates the email status in the sheet
+
+This project is suitable for beginners and shows a real-world automation use case.
+
+Workflow Steps
+1. Form Submission
+
+The customer submits a form containing:
+
+Name
+
+Email
+
+Phone
+
+Address
+
+2. Data Storage
+
+The submitted data is automatically saved in Google Sheets
+
+The sheet contains predefined columns for each field
+
+3. AI Agent Processing
+
+An AI Agent (Gemini) is triggered
+
+It generates a unique and personalized email based on the customer data
+
+4. Email Sending
+
+The generated email is sent to the customer automatically
+
+5. Status Update
+
+After the email is sent, the same row in Google Sheets is updated
+
+A "Sent" status is added for tracking
+
+Tools and Technologies Used
+
+n8n (Workflow Automation)
+
+Google Sheets (Data Storage)
+
+AI Agent (Gemini)
+
+Email Service (Gmail / SMTP)
+
+Webhook or Form Trigger
+
+Project Demo
+
+A complete video demonstration of this project has been created, including AI voice explanation.
+The video explains the workflow logic, node connections, and AI agent behavior.
+
+(Add video link here if available)
+
+Use Cases
+
+This automation can be used for:
+
+Sports shops
+
+Small businesses
+
+Customer onboarding
+
+Automated email communication
+
+No-code / low-code learning projects
+
+Feedback
+
+Feedback and suggestions are welcome.
+This project is shared for learning and improvement purposes.
+
+Acknowledgment
+
+Special thanks to Sir Zafar Iqbal for his guidance and support during this project.
+
+License
+
+This project is open-source and intended for educational use.
