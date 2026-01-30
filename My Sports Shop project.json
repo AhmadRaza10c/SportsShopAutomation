@@ -1,0 +1,399 @@
+{
+  "name": "My Sports Shop project",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Sports Shop",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "select",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Bat"
+                  },
+                  {
+                    "option": "Ball"
+                  },
+                  {
+                    "option": "Football"
+                  },
+                  {
+                    "option": "Hockey stick"
+                  },
+                  {
+                    "option": "Badminton"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Name",
+              "placeholder": "Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Gmail",
+              "placeholder": "Gmail",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Phone",
+              "fieldType": "number",
+              "placeholder": "123456789"
+            },
+            {
+              "fieldLabel": "Address",
+              "placeholder": "Address",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a28da056-f50b-452e-89e6-e92683135daa",
+      "name": "On form submission",
+      "webhookId": "a661c406-99aa-4833-bf85-3846ed9b6eb3"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo",
+          "mode": "list",
+          "cachedResultName": "My Sports Shop",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "select": "={{ $json.select }}",
+            "Name": "={{ $json.Name }}",
+            "Gmail": "={{ $json.Gmail }}",
+            "Phone": "={{ $json.Phone }}",
+            "Address": "={{ $json.Address }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Gmail",
+              "displayName": "Gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "select",
+              "displayName": "select",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        224,
+        0
+      ],
+      "id": "8cd376c6-37d0-4e02-8265-67878e5bdbc6",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QnKbx4sMZ2zMFDdz",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Name: {{ $json.Name }}\nselect: {{ $json.select }}\nGmail: {{ $json.Gmail }}\nPhone: {{ $json.Phone }}\nAddress: {{ $json.Address }}",
+        "options": {
+          "systemMessage": "=You are an AI assistant for a sports shop name is \"Ahmad sports\". Every time a user submits the form, generate a unique email tailored to their input. Use the information from the form:\n\nName: {{ $json.Name }}\n\nProduct selected ({{ $json.select }})\n\nGmail: {{ $json.Gmail }}\n\nPhone: {{ $json.Phone }}\n\nAddress: {{ $json.Address }}\n\nYour task is to generate two outputs:\n\nEmail Subject: A short, catchy subject that is personalized for the user and the product they selected.\n\nEmail Body: A personalized, friendly email message that mentions the user’s name, product selection, and optionally includes relevant greetings or thanks. The email should feel unique and different for each user.\n\nRules:\n\nAlways address the user by their Name.\n\nMention the selected product naturally in the email body.\n\nKeep the tone professional but friendly.\n\nDo not repeat the same phrasing for different users; always make it slightly different and personalized.\n\nThe output format should be:\n\nSubject: <Your generated email subject here>\nBody: <Your generated email body here>\n "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        448,
+        0
+      ],
+      "id": "3c2e5ac9-82d2-48fc-bb15-14b3c026d65a",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $('On form submission').item.json.Gmail }}",
+        "subject": "={{ $json.output.split('Body:')[0].replace('Subject:', '').trim() }}",
+        "message": "={{ $json.output.split('Body:')[1].trim() }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        800,
+        0
+      ],
+      "id": "deea00d3-866d-4f74-be66-f75e53c174e2",
+      "name": "Send a message",
+      "webhookId": "2a5c87dc-7c7e-4f32-b199-7f51f443b38f",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "Eq9FH0utuKoxnbSJ",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo",
+          "mode": "list",
+          "cachedResultName": "My Sports Shop",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ibuN1atnT1CHLOv98OOvBtFcpci9KJn4HtXEpqq_Tgo/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('On form submission').item.json.Name }}",
+            "Email status": "Sent"
+          },
+          "matchingColumns": [
+            "Name"
+          ],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Gmail",
+              "displayName": "Gmail",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Phone",
+              "displayName": "Phone",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "select",
+              "displayName": "select",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Email status",
+              "displayName": "Email status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1024,
+        0
+      ],
+      "id": "c80bd5ad-d7d6-4b49-9e56-81668a82d0a7",
+      "name": "Append or update row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "QnKbx4sMZ2zMFDdz",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        256,
+        272
+      ],
+      "id": "bcb96227-1fc3-4635-b433-628ec1cd2345",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "W8UYiwpqytYRD2cZ",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send a message": {
+      "main": [
+        [
+          {
+            "node": "Append or update row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "e1073cda-28b4-42b7-9f9e-2a469194ad9e",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "4329fa4e7b83cb164feffc8044ec72e6f788331ab6bc5817a0315eb3efaff615"
+  },
+  "id": "NxUNv4PXBSCmg-CjP4ibf",
+  "tags": []
+}
